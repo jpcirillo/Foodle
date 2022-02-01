@@ -12,7 +12,7 @@
   
   #container {
     display: flex;
-    background-color: black;
+    background-color: rgb(36, 33, 33);
     height: 100%;
     align-items: center;
     flex-direction: column;
@@ -31,7 +31,7 @@
   }
   
   .title {
-    color: gainsboro;
+    color: rgb(72, 89, 82);
     font-size: 1.5rem;
     font-weight: bold;
     margin: 0.4rem 0 0.4rem 0;
@@ -57,10 +57,10 @@
   }
   
   .square {
-    border: 2px solid rgb(58, 58, 60);
-    min-width: 60px;
-    min-height: 60px;
-    font-size: 50px;
+    border: 2px solid rgb(72, 89, 82);
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 25px;
     font-weight: bold;
     color: gainsboro;
     text-transform: uppercase;
