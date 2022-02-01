@@ -11,37 +11,21 @@
 // });
 
 document.addEventListener("DOMContentLoaded", () => {
-  createSquares();
-  getNewWord();
-
+  
   let guessedWords = [[]];
   let availableSpace = 1;
 
   let word;
   let guessedWordCount = 0;
+  createSquares();
+  getNewWord();
+
 
   const keys = document.querySelectorAll(".keyboard-row button");
 
   function getNewWord() {
-    fetch(
-      `https://wordsapiv1.p.rapidapi.com/words/?random=true&lettersMin=5&lettersMax=5`,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-          "x-rapidapi-key": "e51525e4edmshdd4747bba507eb7p1e48b1jsn47d464f5e081",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((res) => {
-        word = res.word;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    word = words[Math.floor(Math.random()*words.length)];
+    console.log(word);
   }
 
   function getCurrentWordArr() {
@@ -87,15 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentWord = currentWordArr.join("");
 
-    fetch(`https://wordsapiv1.p.rapidapi.com/words/${currentWord}`, {
-      method: "GET",
-      headers: {
-        "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-        "x-rapidapi-key": "e51525e4edmshdd4747bba507eb7p1e48b1jsn47d464f5e081",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
+        if (!words.includes(currentWord)) {
+          window.alert("Word is not recognised!");
           throw Error();
         }
 
@@ -123,10 +100,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         guessedWords.push([]);
-      })
-      .catch(() => {
-        window.alert("Word is not recognised!");
-      });
+      
+      // .catch(() => {
+      //   window.alert("Word is not recognised!");
+      // });
   }
 
   function createSquares() {

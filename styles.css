@@ -12,7 +12,7 @@
   
   #container {
     display: flex;
-    background-color: rgb(36, 33, 33);
+    background-color: rgb(48, 48, 48);
     height: 100%;
     align-items: center;
     flex-direction: column;
@@ -58,8 +58,8 @@
   
   .square {
     border: 2px solid rgb(72, 89, 82);
-    min-width: 40px;
-    min-height: 40px;
+    min-width: 45px;
+    min-height: 45px;
     font-size: 25px;
     font-weight: bold;
     color: gainsboro;
