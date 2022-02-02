@@ -39,6 +39,16 @@
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
       "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   }
+
+  .streak {
+    color: rgb(181, 159, 59);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0.4rem 0 0.4rem 0;
+    text-align: center;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  }
   
 
   @keyframes color_change {

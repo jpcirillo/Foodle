@@ -5,12 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let words = [];
   let guessedWordCount;
   let disabled;
+  let streak = 0;
+
 
   init();
 
   const keys = document.querySelectorAll(".keyboard-row button");
 
   function init() {
+    document.getElementById('streak').innerHTML = "STREAK: " + streak;
     const alpha = Array.from(Array(26)).map((e, i) => i + 65);
     const alphabet = alpha.map((x) => String.fromCharCode(x).toLowerCase());
     alphabet.forEach(letter => {
@@ -139,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (currentWord === word) {
       disabled = true;
+      streak++;
       document.getElementById("play").removeAttribute("hidden");
     }
 
