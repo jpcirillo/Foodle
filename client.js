@@ -13,9 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function init() {
     getData();
     guessedWords = [[]];
-    availableSpace = 1
-    guessedWordCount = 0
-    document.getElementById("play").setAttribute('hidden', 'true');
+    availableSpace = 1;
+    guessedWordCount = 0;
+    document.getElementById("play").setAttribute("hidden", "true");
     disabled = false;
     createSquares();
   }
@@ -115,11 +115,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const firstLetterId = guessedWordCount * 5 + 1;
     const interval = 200;
-    if(guessedWords.length != 6){
+    if (guessedWords.length != 6) {
       currentWordArr.forEach((letter, index) => {
         setTimeout(() => {
           const tileColor = getTileColor(letter, index);
-  
+
           const letterId = firstLetterId + index;
           const letterEl = document.getElementById(letterId);
           letterEl.classList.add("animate__flipInX");
@@ -127,30 +127,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }, interval * index);
       });
     }
-    
 
     guessedWordCount += 1;
 
     if (currentWord === word) {
       disabled = true;
-      document.getElementById("play").removeAttribute('hidden');
+      document.getElementById("play").removeAttribute("hidden");
     }
 
     if (guessedWords.length === 6) {
       const firstLetterId = 5 * 5 + 1;
       setTimeout(() => {
-        for(let x = 0; x < 5; x++){
-          handleFinalDelete()
+        for (let x = 0; x < 5; x++) {
+          handleFinalDelete();
         }
-        
+
         let reveal = word.split("");
         // reveal.forEach(letter => {
         // });
-        
-        reveal.forEach((letter, index) => {
 
+        reveal.forEach((letter, index) => {
           setTimeout(() => {
-          updateGuessedWords(letter);
+            updateGuessedWords(letter);
             const tileColor = getTileColor(letter, index);
             const letterId = firstLetterId + index;
             const letterEl = document.getElementById(letterId);
@@ -159,52 +157,47 @@ document.addEventListener("DOMContentLoaded", () => {
           }, interval * index);
         });
         disabled = true;
-
-      },1000);
+      }, 1000);
       setTimeout(() => {
-        document.getElementById("play").removeAttribute('hidden');
-      },3000);
+        document.getElementById("play").removeAttribute("hidden");
+      }, 3000);
       setTimeout(() => {
-      currentWordArr.forEach((letter, index) => {
-        setTimeout(() => {
-          const letterId = firstLetterId + index;
-          const letterEl = document.getElementById(letterId);
+        currentWordArr.forEach((letter, index) => {
+          setTimeout(() => {
+            const letterId = firstLetterId + index;
+            const letterEl = document.getElementById(letterId);
 
-          letterEl.style.animation = `color_change .5s`;
+            letterEl.style.animation = `color_change .5s`;
 
-          setTimeout(function () {
-            letterEl.style = "initial";
-          }, 500);
+            setTimeout(function () {
+              letterEl.style = "initial";
+            }, 500);
 
-          document.getElementById("board-container").animate(
-            [
-              // keyframes
-              { to: "border-color: red" },
-              { transform: "translate(1px, 1px) rotate(0deg)" },
-              { transform: "translate(-1px, -2px) rotate(-1deg)" },
-              { transform: "translate(-3px, 0px) rotate(1deg)" },
-              { transform: "translate(3px, 2px) rotate(0deg)" },
-              { transform: "translate(1px, -1px) rotate(1deg)" },
-              { transform: "translate(-1px, 2px) rotate(-1deg)" },
-              { transform: "translate(-3px, 1px) rotate(0deg)" },
-              { transform: "translate(3px, 1px) rotate(-1deg)" },
-              { transform: "translate(-1px, -1px) rotate(1deg)" },
-              { transform: "translate(1px, 2px) rotate(0deg)" },
-              { transform: "translate(1px, -2px) rotate(-1deg)" },
-            ],
-            {
-              // timing options
-              duration: 500,
-            }
-          );
+            document.getElementById("board-container").animate(
+              [
+                // keyframes
+                { to: "border-color: red" },
+                { transform: "translate(1px, 1px) rotate(0deg)" },
+                { transform: "translate(-1px, -2px) rotate(-1deg)" },
+                { transform: "translate(-3px, 0px) rotate(1deg)" },
+                { transform: "translate(3px, 2px) rotate(0deg)" },
+                { transform: "translate(1px, -1px) rotate(1deg)" },
+                { transform: "translate(-1px, 2px) rotate(-1deg)" },
+                { transform: "translate(-3px, 1px) rotate(0deg)" },
+                { transform: "translate(3px, 1px) rotate(-1deg)" },
+                { transform: "translate(-1px, -1px) rotate(1deg)" },
+                { transform: "translate(1px, 2px) rotate(0deg)" },
+                { transform: "translate(1px, -2px) rotate(-1deg)" },
+              ],
+              {
+                // timing options
+                duration: 500,
+              }
+            );
+          });
         });
       });
-    });
-     
-
-      
     }
-
     guessedWords.push([]);
   }
 
@@ -291,25 +284,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
   }
-document.getElementById ("play").onclick= ({ target }) => {
-init()
-}
+  document.getElementById("play").onclick = ({ target }) => {
+    init();
+  };
 
-function getData(){       //this will read file and send information to other function
-  fetch('words.txt')
-  .then(response => response.text())
-  .then(data => {
-    words = data.split(",");
-    words= words.map(element =>{
-      return element.toLowerCase();
-    })
-    getNewWord();
-
-  });
-}
-
-
-
+  function getData() {
+    //this will read file and send information to other function
+    fetch("words.txt")
+      .then((response) => response.text())
+      .then((data) => {
+        words = data.split(",");
+        words = words.map((element) => {
+          return element.toLowerCase();
+        });
+        getNewWord();
+      });
+  }
 });
-
-
