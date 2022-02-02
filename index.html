@@ -5,10 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WORDILLO!</title>
-
     <script src="client.js"></script>
     <script src="array.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
@@ -19,13 +18,23 @@
     <div id="container">
       <div id="game">
         <header>
-          <h2 class="title">WORDILLO</h2>
+          <h2 class="title"><a href="http://www.youtube.com/c/rillotv" title="YouTube"><i class="bi bi-youtube"></i></a>
+             | WORDILLO | 
+             <a href="http://www.twitter.com/rillotv" title="Twitter"><i class="bi bi-twitter"></i></a></h2>
         </header>
-
         <div id="board-container">
-          <div id="board"></div>
+          <div class="col">
+            <div class="row">
+              <div id="board"></div>
+            </div>
+            <div class="row">
+              <div class="play-again">
+                
+                <button id="play" hidden >Play Again!</button>
+              </div>
+            </div>
+          </div>
         </div>
-
         <div id="keyboard-container">
           <div class="keyboard-row">
             <button data-key="q">q</button>

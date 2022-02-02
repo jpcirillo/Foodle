@@ -1,1 +1,0 @@
-let words = [ "rillo", "huddy", "soapy", "grimm"];

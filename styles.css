@@ -31,7 +31,7 @@
   }
   
   .title {
-    color: rgb(72, 89, 82);
+    color: rgb(83, 141, 78);
     font-size: 1.5rem;
     font-weight: bold;
     margin: 0.4rem 0 0.4rem 0;
@@ -39,7 +39,29 @@
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
       "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   }
+
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
   
+
+  @keyframes color_change {
+    0%  { border-color: rgb(72, 89, 82); }
+	20% { border-color: red; }
+	80% { border-color: red; }
+	100% { border-color: rgb(72, 89, 82); }
+}
+
   #board-container {
     display: flex;
     justify-content: center;
@@ -69,6 +91,13 @@
     justify-content: center;
     align-items: center;
   }
+  a { 
+    color:rgb(181, 159, 59);
+    text-decoration:none;
+}
+  a:hover, a:focus {
+    text-decoration:underline;
+}
   
   #keyboard-container {
     height: 200px;
@@ -100,6 +129,29 @@
   
   .keyboard-row button.wide-button {
     flex-grow: 1.5;
+  }
+
+  .play-again {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto 8px;
+    touch-action: manipulation;
+  }
+
+  .play-again button{
+    font-family: inherit;
+    font-weight: bold;
+    border: 0;
+    padding: 0;
+    height: 58px;
+    cursor: pointer;
+    background-color: rgb(83, 141, 78);
+    color: rgb(215, 218, 220);
+    flex-grow: .9;
+    text-transform: uppercase;
+    border-radius: 4px;
+    user-select: none;
   }
   
   .spacer-half {
