@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let guessedWordCount;
   let disabled;
   let streak = 0;
+  let alltime = 0;
 
 
   init();
@@ -13,7 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const keys = document.querySelectorAll(".keyboard-row button");
 
   function init() {
-    document.getElementById('streak').innerHTML = "STREAK: " + streak;
+    storeData();
+    document.getElementById('streak').innerHTML = "SESSION STREAK: " + streak;
+    // document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
     const alpha = Array.from(Array(26)).map((e, i) => i + 65);
     const alphabet = alpha.map((x) => String.fromCharCode(x).toLowerCase());
     alphabet.forEach(letter => {
@@ -30,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getNewWord() {
     word = words[Math.floor(Math.random() * words.length)];
+    console.log(word);
   }
 
   function getCurrentWordArr() {
@@ -143,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentWord === word) {
       disabled = true;
       streak++;
+      alltime++;
       document.getElementById("play").removeAttribute("hidden");
     }
 
@@ -310,5 +315,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         getNewWord();
       });
+  }
+
+  function storeData() {
+    if (typeof(Storage) !== "undefined") {
+      // Store
+      window.localStorage.setItem("alltime", alltime);
+      // Retrieve
+      console.log(localStorage.getItem("alltime"));
+      alltime = localStorage.getItem("alltime");
+    } else {
+      console.log("Sorry, your browser does not support Web Storage...");
+    }
   }
 });
