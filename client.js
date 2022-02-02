@@ -11,6 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const keys = document.querySelectorAll(".keyboard-row button");
 
   function init() {
+    const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+    const alphabet = alpha.map((x) => String.fromCharCode(x).toLowerCase());
+    alphabet.forEach(letter => {
+      document.getElementById(letter).style="background-color: rgb(129, 131, 132)"
+    });
     getData();
     guessedWords = [[]];
     availableSpace = 1;
@@ -122,6 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const letterId = firstLetterId + index;
           const letterEl = document.getElementById(letterId);
+          const key = letterEl.textContent;
+          if(tileColor == "rgb(58, 58, 60)") document.getElementById(key).style="background-color: #191919"
           letterEl.classList.add("animate__flipInX");
           letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
         }, interval * index);
