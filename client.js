@@ -8,15 +8,35 @@ document.addEventListener("DOMContentLoaded", () => {
   let streak = 0;
   let alltime = 0;
 
+  alltime = JSON.parse(localStorage.getItem('alltime')) || 0;
+
+
+function addValue() {
+  localStorage.setItem('alltime', alltime);
+  alltime = localStorage.getItem("alltime");
+  console.log(alltime);
+}
+
+function storeData() {
+  if (typeof(Storage) !== "undefined") {
+    // Store
+    window.localStorage.setItem("alltime", alltime);
+    // Retrieve
+    console.log(localStorage.getItem("alltime"));
+    alltime = localStorage.getItem("alltime");
+  } else {
+    console.log("Sorry, your browser does not support Web Storage...");
+  }
+}
 
   init();
 
   const keys = document.querySelectorAll(".keyboard-row button");
 
   function init() {
-    storeData();
+    addValue();
     document.getElementById('streak').innerHTML = "SESSION STREAK: " + streak;
-    // document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
+    document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
     const alpha = Array.from(Array(26)).map((e, i) => i + 65);
     const alphabet = alpha.map((x) => String.fromCharCode(x).toLowerCase());
     alphabet.forEach(letter => {
@@ -136,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const letterEl = document.getElementById(letterId);
           const key = letterEl.textContent;
           if(tileColor == "rgb(58, 58, 60)") document.getElementById(key).style="background-color: #191919"
+          if(tileColor == "rgb(83, 141, 78)") document.getElementById(key).style="background-color: #538d4e"
           letterEl.classList.add("animate__flipInX");
           letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
         }, interval * index);
@@ -147,12 +168,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentWord === word) {
       disabled = true;
       streak++;
-      alltime++;
+      if(streak>alltime){
+        alltime = streak;
+      }
       document.getElementById("play").removeAttribute("hidden");
+      document.getElementById('streak').innerHTML = "SESSION STREAK: " + streak;
+      document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
     }
 
     if (guessedWords.length === 6) {
       const firstLetterId = 5 * 5 + 1;
+      streak = 0; 
       setTimeout(() => {
         for (let x = 0; x < 5; x++) {
           handleFinalDelete();
@@ -317,15 +343,5 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  function storeData() {
-    if (typeof(Storage) !== "undefined") {
-      // Store
-      window.localStorage.setItem("alltime", alltime);
-      // Retrieve
-      console.log(localStorage.getItem("alltime"));
-      alltime = localStorage.getItem("alltime");
-    } else {
-      console.log("Sorry, your browser does not support Web Storage...");
-    }
-  }
+
 });
