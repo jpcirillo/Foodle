@@ -7,13 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let disabled;
   let streak = 0;
   let alltime = 0;
+  var modal = document.getElementById("myModal");
 
   alltime = JSON.parse(localStorage.getItem('alltime')) || 0;
 
 
 function addValue() {
   localStorage.setItem('alltime', alltime);
+  localStorage.setItem('streak', streak);
   alltime = localStorage.getItem("alltime");
+  streak = localStorage.getItem("streak");
   console.log(alltime);
 }
 
@@ -35,7 +38,9 @@ function storeData() {
 
   function init() {
     addValue();
-    document.getElementById('streak').innerHTML = "SESSION STREAK: " + streak;
+    modal.style.display = "none";
+
+    document.getElementById('streak').innerHTML = "CURRENT STREAK: " + streak;
     document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
     const alpha = Array.from(Array(26)).map((e, i) => i + 65);
     const alphabet = alpha.map((x) => String.fromCharCode(x).toLowerCase());
@@ -172,6 +177,16 @@ function storeData() {
         alltime = streak;
       }
       document.getElementById("play").removeAttribute("hidden");
+      var span = document.getElementsByClassName("close")[0];
+
+      modal.style.display = "block";
+      
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
       document.getElementById('streak').innerHTML = "SESSION STREAK: " + streak;
       document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
     }
