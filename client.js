@@ -22,12 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getNewWord() {
     word = words[Math.floor(Math.random() * words.length)];
-    console.log(word);
   }
 
   function getCurrentWordArr() {
     const numberOfGuessedWords = guessedWords.length;
     return guessedWords[numberOfGuessedWords - 1];
+  }
+
+  function getFinalWordArr() {
+    return guessedWords[6 - 1];
   }
 
   function updateGuessedWords(letter) {
@@ -67,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleSubmitWord() {
     const currentWordArr = getCurrentWordArr();
     if (currentWordArr.length !== 5) {
-      window.alert("Word must be 5 letters");
     }
 
     const currentWord = currentWordArr.join("");
@@ -113,27 +115,94 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const firstLetterId = guessedWordCount * 5 + 1;
     const interval = 200;
-    currentWordArr.forEach((letter, index) => {
-      setTimeout(() => {
-        const tileColor = getTileColor(letter, index);
-
-        const letterId = firstLetterId + index;
-        const letterEl = document.getElementById(letterId);
-        letterEl.classList.add("animate__flipInX");
-        letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
-      }, interval * index);
-    });
+    if(guessedWords.length != 6){
+      currentWordArr.forEach((letter, index) => {
+        setTimeout(() => {
+          const tileColor = getTileColor(letter, index);
+  
+          const letterId = firstLetterId + index;
+          const letterEl = document.getElementById(letterId);
+          letterEl.classList.add("animate__flipInX");
+          letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+        }, interval * index);
+      });
+    }
+    
 
     guessedWordCount += 1;
 
     if (currentWord === word) {
       disabled = true;
       document.getElementById("play").removeAttribute('hidden');
-      // window.alert("Congratulations!");
     }
 
     if (guessedWords.length === 6) {
-      window.alert(`Sorry, you have no more guesses! The word is ${word}.`);
+      const firstLetterId = 5 * 5 + 1;
+      setTimeout(() => {
+        for(let x = 0; x < 5; x++){
+          handleFinalDelete()
+        }
+        
+        let reveal = word.split("");
+        // reveal.forEach(letter => {
+        // });
+        
+        reveal.forEach((letter, index) => {
+
+          setTimeout(() => {
+          updateGuessedWords(letter);
+            const tileColor = getTileColor(letter, index);
+            const letterId = firstLetterId + index;
+            const letterEl = document.getElementById(letterId);
+            letterEl.classList.add("animate__flipInX");
+            letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+          }, interval * index);
+        });
+        disabled = true;
+
+      },1000);
+      setTimeout(() => {
+        document.getElementById("play").removeAttribute('hidden');
+      },3000);
+      setTimeout(() => {
+      currentWordArr.forEach((letter, index) => {
+        setTimeout(() => {
+          const letterId = firstLetterId + index;
+          const letterEl = document.getElementById(letterId);
+
+          letterEl.style.animation = `color_change .5s`;
+
+          setTimeout(function () {
+            letterEl.style = "initial";
+          }, 500);
+
+          document.getElementById("board-container").animate(
+            [
+              // keyframes
+              { to: "border-color: red" },
+              { transform: "translate(1px, 1px) rotate(0deg)" },
+              { transform: "translate(-1px, -2px) rotate(-1deg)" },
+              { transform: "translate(-3px, 0px) rotate(1deg)" },
+              { transform: "translate(3px, 2px) rotate(0deg)" },
+              { transform: "translate(1px, -1px) rotate(1deg)" },
+              { transform: "translate(-1px, 2px) rotate(-1deg)" },
+              { transform: "translate(-3px, 1px) rotate(0deg)" },
+              { transform: "translate(3px, 1px) rotate(-1deg)" },
+              { transform: "translate(-1px, -1px) rotate(1deg)" },
+              { transform: "translate(1px, 2px) rotate(0deg)" },
+              { transform: "translate(1px, -2px) rotate(-1deg)" },
+            ],
+            {
+              // timing options
+              duration: 500,
+            }
+          );
+        });
+      });
+    });
+     
+
+      
     }
 
     guessedWords.push([]);
@@ -154,6 +223,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function handleDeleteLetter() {
     const currentWordArr = getCurrentWordArr();
+
+    if (currentWordArr.length > 0) {
+      const removedLetter = currentWordArr.pop();
+
+      guessedWords[guessedWords.length - 1] = currentWordArr;
+
+      const lastLetterEl = document.getElementById(String(availableSpace - 1));
+
+      lastLetterEl.textContent = "";
+      availableSpace = availableSpace - 1;
+    }
+  }
+
+  function handleFinalDelete() {
+    const currentWordArr = getFinalWordArr();
 
     if (currentWordArr.length > 0) {
       const removedLetter = currentWordArr.pop();
@@ -219,7 +303,6 @@ function getData(){       //this will read file and send information to other fu
     words= words.map(element =>{
       return element.toLowerCase();
     })
-    console.log(words);
     getNewWord();
 
   });
