@@ -154,7 +154,7 @@
     cursor: pointer;
     background-color: rgb(83, 141, 78);
     color: rgb(215, 218, 220);
-    flex-grow: .9;
+    flex-grow: .2;
     text-transform: uppercase;
     border-radius: 4px;
     user-select: none;
