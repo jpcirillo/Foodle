@@ -141,21 +141,43 @@ function storeData() {
     const firstLetterId = guessedWordCount * 5 + 1;
     const interval = 200;
     if (guessedWords.length != 6) {
-      currentWordArr.forEach((letter, index) => {
-        setTimeout(() => {
-          const tileColor = getTileColor(letter, index);
-
-          const letterId = firstLetterId + index;
-          const letterEl = document.getElementById(letterId);
-          const key = letterEl.textContent;
-          if(tileColor == "rgb(58, 58, 60)") letterEl.setAttribute("data-state", "absent");
-          if(tileColor == "rgb(83, 141, 78)") letterEl.setAttribute("data-state", "correct");
-          if(tileColor == "rgb(181, 159, 59)") letterEl.setAttribute("data-state", "present");
-
-         letterEl.setAttribute("data-animation", "flip-in")
-         letterEl.setAttribute("data-animation", "flip-out")
-        }, interval * index);
-      });
+      if(currentWord === word){
+        currentWordArr.forEach((letter, index) => {
+          setTimeout(() => {
+            const tileColor = getTileColor(letter, index);
+  
+            const letterId = firstLetterId + index;
+            const letterEl = document.getElementById(letterId);
+            const key = letterEl.textContent;
+            if(tileColor == "rgb(83, 141, 78)") letterEl.setAttribute("data-state", "correct");
+  
+           letterEl.setAttribute("data-animation", "flip-in")
+           letterEl.setAttribute("data-animation", "flip-out")
+           setTimeout(() => {
+            letterEl.setAttribute("data-animation", "idle");
+            letterEl.setAttribute("data-animation", "win")
+          }, 800);
+          }, interval * index);
+        });
+      }
+      else{
+        currentWordArr.forEach((letter, index) => {
+          setTimeout(() => {
+            const tileColor = getTileColor(letter, index);
+  
+            const letterId = firstLetterId + index;
+            const letterEl = document.getElementById(letterId);
+            const key = letterEl.textContent;
+            if(tileColor == "rgb(58, 58, 60)") letterEl.setAttribute("data-state", "absent");
+            if(tileColor == "rgb(83, 141, 78)") letterEl.setAttribute("data-state", "correct");
+            if(tileColor == "rgb(181, 159, 59)") letterEl.setAttribute("data-state", "present");
+  
+           letterEl.setAttribute("data-animation", "flip-in")
+           letterEl.setAttribute("data-animation", "flip-out")
+          }, interval * index);
+        });
+      }
+      
     }
 
     guessedWordCount += 1;
