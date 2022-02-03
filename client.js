@@ -168,10 +168,18 @@ function storeData() {
             const letterId = firstLetterId + index;
             const letterEl = document.getElementById(letterId);
             const key = letterEl.textContent;
-            if(tileColor == "rgb(58, 58, 60)") letterEl.setAttribute("data-state", "absent");
-            if(tileColor == "rgb(83, 141, 78)") letterEl.setAttribute("data-state", "correct");
-            if(tileColor == "rgb(181, 159, 59)") letterEl.setAttribute("data-state", "present");
-  
+            if(tileColor == "rgb(58, 58, 60)") {
+              letterEl.setAttribute("data-state", "absent");
+              document.getElementById(key).style=("background-color: rgb(54, 54, 54)")
+            }
+            if(tileColor == "rgb(83, 141, 78)") {
+              letterEl.setAttribute("data-state", "correct");
+              document.getElementById(key).style=("background-color: var(--color-correct)")
+            }
+            if(tileColor == "rgb(181, 159, 59)") {
+              letterEl.setAttribute("data-state", "present");
+              document.getElementById(key).style=("background-color: var(--color-present)")
+            }
            letterEl.setAttribute("data-animation", "flip-in")
            letterEl.setAttribute("data-animation", "flip-out")
           }, interval * index);
