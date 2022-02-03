@@ -60,7 +60,7 @@ function storeData() {
 
   function getNewWord() {
     word = words[Math.floor(Math.random() * words.length)];
-   // console.log(word);
+    console.log(word);
   }
 
   function getCurrentWordArr() {
@@ -97,6 +97,10 @@ function storeData() {
       const currentWordArr = getCurrentWordArr();
       correct = [];
       almost = [];
+
+      console.log(word);
+      console.log(guess);
+      console.log(dupes);
       
       currentWordArr.forEach((letter, index) => {
         if(word.charAt(index) === letter){
@@ -112,25 +116,43 @@ function storeData() {
           })
         }
       })
+      console.log(correct);
+      console.log(almost);
   }
 
   function getTileColor(letter, index, dupes) {
     let x;
-    almost.forEach((check) => {
-      if (check.letter === letter && check.index === index) {
-        x = "partial";
-      } else {
-        const isCorrectLetter = word.includes(letter);
-        if (!isCorrectLetter) {
-          x = "rgb(58, 58, 60)";
+    if(almost.length > 0){
+      almost.forEach((check) => {
+        if (check.letter === letter && check.index === index) {
+          x = "partial";
+        } else {
+          const isCorrectLetter = word.includes(letter);
+          if (!isCorrectLetter) {
+            x = "rgb(58, 58, 60)";
+          }
+          const letterInThatPosition = word.charAt(index);
+          const isCorrectPosition = letter === letterInThatPosition;
+          if (isCorrectPosition) {
+            x = "rgb(83, 141, 78)";
+          }
+
+          x = "rgb(181, 159, 59)"
         }
-        const letterInThatPosition = word.charAt(index);
-        const isCorrectPosition = letter === letterInThatPosition;
-        if (isCorrectPosition) {
-          x = "rgb(83, 141, 78)";
-        }
+      });
+    }
+    else {
+      const isCorrectLetter = word.includes(letter);
+      if (!isCorrectLetter) {
+        x = "rgb(58, 58, 60)";
       }
-    });
+      const letterInThatPosition = word.charAt(index);
+      const isCorrectPosition = letter === letterInThatPosition;
+      if (isCorrectPosition) {
+        x = "rgb(83, 141, 78)";
+      }
+    }
+    
     return x;
   }
 
@@ -196,7 +218,6 @@ function storeData() {
        }
        
        let dupes = getRepeatedChars(word);
-       duplicates = [];
        checkDuplicate(word,currentWord, dupes);
         currentWordArr.forEach((letter, index) => {
           setTimeout(() => {
