@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let disabled;
   let streak = 0;
   let alltime = 0;
-  var modal = document.getElementById("myModal");
+  var modal = document.getElementById("exampleModal");
 
   alltime = JSON.parse(localStorage.getItem('alltime')) || 0;
 
@@ -37,11 +37,11 @@ function storeData() {
   const keys = document.querySelectorAll(".keyboard-row button");
 
   function init() {
-    addValue();
+    // addValue();
     modal.style.display = "none";
 
-    document.getElementById('streak').innerHTML = "CURRENT STREAK: " + streak;
-    document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
+    // document.getElementById('streak').innerHTML = "CURRENT STREAK: " + streak;
+    // document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
     const alpha = Array.from(Array(26)).map((e, i) => i + 65);
     const alphabet = alpha.map((x) => String.fromCharCode(x).toLowerCase());
     alphabet.forEach(letter => {
@@ -77,9 +77,18 @@ function storeData() {
       currentWordArr.push(letter);
 
       const availableSpaceEl = document.getElementById(String(availableSpace));
+      console.log(availableSpaceEl);
+      availableSpaceEl.setAttribute("data-animation", "pop");
+
+      availableSpaceEl.setAttribute("data-state", "tbd");
 
       availableSpace = availableSpace + 1;
-      availableSpaceEl.textContent = letter;
+      availableSpaceEl.innerText = letter;
+
+      setTimeout(() => {
+      availableSpaceEl.setAttribute("data-animation", "idle");
+        
+        }, 100);
     }
   }
 
@@ -118,34 +127,37 @@ function storeData() {
           const letterId = firstLetterId + index;
           const letterEl = document.getElementById(letterId);
 
-          letterEl.style.animation = `color_change .5s`;
+         // letterEl.style.animation = `color_change .5s`;
+         // document.getElementById("row").setAttribute("data-animation", "invalid")
 
           setTimeout(function () {
             letterEl.style = "initial";
-          }, 500);
+         //  document.getElementById("row").setAttribute("data-animation", "idle")
+
+          }, 600);
         });
       });
-      document.getElementById("board-container").animate(
-        [
-          // keyframes
-          { to: "border-color: red" },
-          { transform: "translate(1px, 1px) rotate(0deg)" },
-          { transform: "translate(-1px, -2px) rotate(-1deg)" },
-          { transform: "translate(-3px, 0px) rotate(1deg)" },
-          { transform: "translate(3px, 2px) rotate(0deg)" },
-          { transform: "translate(1px, -1px) rotate(1deg)" },
-          { transform: "translate(-1px, 2px) rotate(-1deg)" },
-          { transform: "translate(-3px, 1px) rotate(0deg)" },
-          { transform: "translate(3px, 1px) rotate(-1deg)" },
-          { transform: "translate(-1px, -1px) rotate(1deg)" },
-          { transform: "translate(1px, 2px) rotate(0deg)" },
-          { transform: "translate(1px, -2px) rotate(-1deg)" },
-        ],
-        {
-          // timing options
-          duration: 500,
-        }
-      );
+      // document.getElementById("board-container").animate(
+      //   [
+      //     // keyframes
+      //     { to: "border-color: red" },
+      //     { transform: "translate(1px, 1px) rotate(0deg)" },
+      //     { transform: "translate(-1px, -2px) rotate(-1deg)" },
+      //     { transform: "translate(-3px, 0px) rotate(1deg)" },
+      //     { transform: "translate(3px, 2px) rotate(0deg)" },
+      //     { transform: "translate(1px, -1px) rotate(1deg)" },
+      //     { transform: "translate(-1px, 2px) rotate(-1deg)" },
+      //     { transform: "translate(-3px, 1px) rotate(0deg)" },
+      //     { transform: "translate(3px, 1px) rotate(-1deg)" },
+      //     { transform: "translate(-1px, -1px) rotate(1deg)" },
+      //     { transform: "translate(1px, 2px) rotate(0deg)" },
+      //     { transform: "translate(1px, -2px) rotate(-1deg)" },
+      //   ],
+      //   {
+      //     // timing options
+      //     duration: 500,
+      //   }
+      // );
 
       throw Error("Word is not in our dictionary.");
     }
@@ -160,10 +172,14 @@ function storeData() {
           const letterId = firstLetterId + index;
           const letterEl = document.getElementById(letterId);
           const key = letterEl.textContent;
-          if(tileColor == "rgb(58, 58, 60)") document.getElementById(key).style="background-color: #191919"
-          if(tileColor == "rgb(83, 141, 78)") document.getElementById(key).style="background-color: #538d4e"
-          letterEl.classList.add("animate__flipInX");
-          letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+          if(tileColor == "rgb(58, 58, 60)") letterEl.setAttribute("data-state", "absent");
+          if(tileColor == "rgb(83, 141, 78)") letterEl.setAttribute("data-state", "correct");
+          if(tileColor == "rgb(181, 159, 59)") letterEl.setAttribute("data-state", "present");
+          // if(tileColor == "rgb(83, 141, 78)") document.getElementById(key).setAttribute("data-state", "correct");
+         // letterEl.classList.add("animate__flipInX");
+         letterEl.setAttribute("data-animation", "flip-in")
+         // letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+         letterEl.setAttribute("data-animation", "flip-out")
         }, interval * index);
       });
     }
@@ -179,7 +195,8 @@ function storeData() {
       document.getElementById("play").removeAttribute("hidden");
       var span = document.getElementsByClassName("close")[0];
 
-      modal.style.display = "block";
+      $('#exampleModal').modal('show');
+
       
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
@@ -229,28 +246,28 @@ function storeData() {
             setTimeout(function () {
               letterEl.style = "initial";
             }, 500);
-
-            document.getElementById("board-container").animate(
-              [
-                // keyframes
-                { to: "border-color: red" },
-                { transform: "translate(1px, 1px) rotate(0deg)" },
-                { transform: "translate(-1px, -2px) rotate(-1deg)" },
-                { transform: "translate(-3px, 0px) rotate(1deg)" },
-                { transform: "translate(3px, 2px) rotate(0deg)" },
-                { transform: "translate(1px, -1px) rotate(1deg)" },
-                { transform: "translate(-1px, 2px) rotate(-1deg)" },
-                { transform: "translate(-3px, 1px) rotate(0deg)" },
-                { transform: "translate(3px, 1px) rotate(-1deg)" },
-                { transform: "translate(-1px, -1px) rotate(1deg)" },
-                { transform: "translate(1px, 2px) rotate(0deg)" },
-                { transform: "translate(1px, -2px) rotate(-1deg)" },
-              ],
-              {
-                // timing options
-                duration: 500,
-              }
-            );
+            document.getElementById("row").setAttribute("data-animation", "invalid")
+            // document.getElementById("board-container").animate(
+            //   [
+            //     // keyframes
+            //     { to: "border-color: red" },
+            //     { transform: "translate(1px, 1px) rotate(0deg)" },
+            //     { transform: "translate(-1px, -2px) rotate(-1deg)" },
+            //     { transform: "translate(-3px, 0px) rotate(1deg)" },
+            //     { transform: "translate(3px, 2px) rotate(0deg)" },
+            //     { transform: "translate(1px, -1px) rotate(1deg)" },
+            //     { transform: "translate(-1px, 2px) rotate(-1deg)" },
+            //     { transform: "translate(-3px, 1px) rotate(0deg)" },
+            //     { transform: "translate(3px, 1px) rotate(-1deg)" },
+            //     { transform: "translate(-1px, -1px) rotate(1deg)" },
+            //     { transform: "translate(1px, 2px) rotate(0deg)" },
+            //     { transform: "translate(1px, -2px) rotate(-1deg)" },
+            //   ],
+            //   {
+            //     // timing options
+            //     duration: 500,
+            //   }
+            // );
           });
         });
       });
@@ -265,8 +282,9 @@ function storeData() {
     for (let index = 0; index < 30; index++) {
       let square = document.createElement("div");
       square.classList.add("square");
-      square.classList.add("animate__animated");
       square.setAttribute("id", index + 1);
+      square.setAttribute("data-animation", "idle");
+      square.setAttribute("data-state", "empty");
       gameBoard.appendChild(square);
     }
   }
@@ -280,6 +298,7 @@ function storeData() {
       guessedWords[guessedWords.length - 1] = currentWordArr;
 
       const lastLetterEl = document.getElementById(String(availableSpace - 1));
+      lastLetterEl.setAttribute("data-state", "empty");
 
       lastLetterEl.textContent = "";
       availableSpace = availableSpace - 1;

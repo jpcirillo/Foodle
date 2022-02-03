@@ -13,36 +13,112 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <style>
+      /* Global Styles & Colors */
+     
+    </style>
   </head>
   <body>
+    <div class="toaster" id="game-toaster"></div>
+    
     <div id="container">
       <div id="game">
         <header>
-          <h2 class="title"><a href="http://www.youtube.com/c/rillotv" title="YouTube"><i class="bi bi-youtube"></i></a>
-             | WORDILLO | 
-             <a href="http://www.twitter.com/rillotv" title="Twitter"><i class="bi bi-twitter"></i></a></h2>
+          <div class="title">WORDILLO</div>
         </header>
         <div id="board-container">
-          <div class="col">
-            <h1 class="alltime" id="alltime"></h1>
-            <h1 class="streak" id="streak"></h1>
-            <div class="row">
-              <div id="board"></div>
-            </div>
-            <div class="row">
-              <div id="myModal" class="modal">
+            <!-- <h1 class="alltime" id="alltime"></h1>
+            <h1 class="streak" id="streak"></h1> -->
+              <div id="board" style="width: 350px; height: 420px;"></div>
+            <!-- <div class="row" data-animation='invalid'>
 
-                <!-- Modal content -->
-                <div class="modal-content">
-                  <div class="play-again">
-                    <button id="play" hidden >Play Again!</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            </div> -->
         </div>
         <div id="keyboard-container">
+          <style>
+            :host {
+              height: var(--keyboard-height);
+            }
+            #keyboard {
+              margin: 0 8px;
+              user-select: none;
+            }
+            
+            .row {
+              display: flex;
+              width: 100%;
+              margin: 0 auto 8px;
+              /* https://stackoverflow.com/questions/46167604/ios-html-disable-double-tap-to-zoom */
+              touch-action: manipulation;
+            }
+            
+            button {
+              font-family: inherit;
+              font-weight: bold;
+              border: 0;
+              padding: 0;
+              margin: 0 6px 0 0;
+              height: 58px;
+              border-radius: 4px;
+              cursor: pointer;
+              user-select: none;
+              background-color: var(--key-bg);
+              color: var(--key-text-color);
+              flex: 1;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-transform: uppercase;
+              -webkit-tap-highlight-color: rgba(0,0,0,0.3);
+            }
+          
+            button:focus {
+              outline: none;
+            }
+          
+            button.fade {
+              transition: background-color 0.1s ease, color 0.1s ease;
+            }
+            
+            button:last-of-type {
+              margin: 0;
+            }
+            
+            .half {
+              flex: 0.5;
+            }
+            
+            .one {
+              flex: 1;
+            }
+          
+            .one-and-a-half {
+              flex: 1.5;
+              font-size: 12px;
+            }
+            
+            .two {
+              flex: 2;
+            }
+          
+            button[data-state='correct'] {
+              background-color: var(--key-bg-correct);
+              color: var(--key-evaluated-text-color);
+            }
+          
+            button[data-state='present'] {
+              background-color: var(--key-bg-present);
+              color: var(--key-evaluated-text-color);
+            }
+          
+            button[data-state='absent'] {
+              background-color: var(--key-bg-absent);
+              color: var(--key-evaluated-text-color);
+            }
+          
+            </style>
           <div class="keyboard-row">
             <button id="q"data-key="q">q</button>
             <button id="w"data-key="w">w</button>
@@ -82,5 +158,26 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="play-again">
+          <button id="play" hidden >Play Again!</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
   </body>
 </html>
