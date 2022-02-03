@@ -238,11 +238,11 @@ body {
   }
 
   .square[data-state='empty'] {
-    border: 2px solid var(--color-tone-4);
+    border: 2px solid var(--color-tone-2);
   }
   .square[data-state='tbd'] {
     /* background-color: var(--color-tone-7); */
-    border: 2px solid var(--color-tone-3);
+    border: 2px solid var(--color-tone-4);
     /* color: var(--color-tone-1); */
   }
   .square[data-state='correct'] {
