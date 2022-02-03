@@ -230,7 +230,7 @@ body {
   }
 
   /* Allow tiles to be smaller on small screens */
-  @media (max-height: 600px) {
+  @media (max-height: 400px) {
     .square {
       font-size: 1em;
       line-height: 1em;
