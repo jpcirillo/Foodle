@@ -399,6 +399,16 @@ body {
   animation-duration: 250ms;
   animation-timing-function: ease-in;
 }
+
+.square[data-animation='invalid'] {
+  animation-name: Shake;
+  animation-duration: 600ms;
+}
+
+.square[data-animation='win'] {
+  animation-name: Bounce;
+  animation-duration: 1000ms;
+}
 @keyframes FlipOut {
   0% {
     transform: rotateX(-90deg);

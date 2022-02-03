@@ -77,7 +77,6 @@ function storeData() {
       currentWordArr.push(letter);
 
       const availableSpaceEl = document.getElementById(String(availableSpace));
-      console.log(availableSpaceEl);
       availableSpaceEl.setAttribute("data-animation", "pop");
 
       availableSpaceEl.setAttribute("data-state", "tbd");
@@ -127,37 +126,14 @@ function storeData() {
           const letterId = firstLetterId + index;
           const letterEl = document.getElementById(letterId);
 
-         // letterEl.style.animation = `color_change .5s`;
-         // document.getElementById("row").setAttribute("data-animation", "invalid")
+         letterEl.setAttribute("data-animation", "invalid");
 
           setTimeout(function () {
-            letterEl.style = "initial";
-         //  document.getElementById("row").setAttribute("data-animation", "idle")
-
+            letterEl.setAttribute("data-animation", "idle");
           }, 600);
         });
       });
-      // document.getElementById("board-container").animate(
-      //   [
-      //     // keyframes
-      //     { to: "border-color: red" },
-      //     { transform: "translate(1px, 1px) rotate(0deg)" },
-      //     { transform: "translate(-1px, -2px) rotate(-1deg)" },
-      //     { transform: "translate(-3px, 0px) rotate(1deg)" },
-      //     { transform: "translate(3px, 2px) rotate(0deg)" },
-      //     { transform: "translate(1px, -1px) rotate(1deg)" },
-      //     { transform: "translate(-1px, 2px) rotate(-1deg)" },
-      //     { transform: "translate(-3px, 1px) rotate(0deg)" },
-      //     { transform: "translate(3px, 1px) rotate(-1deg)" },
-      //     { transform: "translate(-1px, -1px) rotate(1deg)" },
-      //     { transform: "translate(1px, 2px) rotate(0deg)" },
-      //     { transform: "translate(1px, -2px) rotate(-1deg)" },
-      //   ],
-      //   {
-      //     // timing options
-      //     duration: 500,
-      //   }
-      // );
+    
 
       throw Error("Word is not in our dictionary.");
     }
@@ -175,10 +151,8 @@ function storeData() {
           if(tileColor == "rgb(58, 58, 60)") letterEl.setAttribute("data-state", "absent");
           if(tileColor == "rgb(83, 141, 78)") letterEl.setAttribute("data-state", "correct");
           if(tileColor == "rgb(181, 159, 59)") letterEl.setAttribute("data-state", "present");
-          // if(tileColor == "rgb(83, 141, 78)") document.getElementById(key).setAttribute("data-state", "correct");
-         // letterEl.classList.add("animate__flipInX");
+
          letterEl.setAttribute("data-animation", "flip-in")
-         // letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
          letterEl.setAttribute("data-animation", "flip-out")
         }, interval * index);
       });
@@ -208,69 +182,66 @@ function storeData() {
       document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
     }
 
+    //FINAL WRONG WORD
     if (guessedWords.length === 6) {
       const firstLetterId = 5 * 5 + 1;
       streak = 0; 
-      setTimeout(() => {
-        for (let x = 0; x < 5; x++) {
-          handleFinalDelete();
-        }
+      reveal = word.split("");
 
-        let reveal = word.split("");
-        // reveal.forEach(letter => {
-        // });
+      //initial error play
+        currentWordArr.forEach((letter, index) => {
+         setTimeout(() => {
 
-        reveal.forEach((letter, index) => {
-          setTimeout(() => {
-            updateGuessedWords(letter);
-            const tileColor = getTileColor(letter, index);
-            const letterId = firstLetterId + index;
-            const letterEl = document.getElementById(letterId);
-            letterEl.classList.add("animate__flipInX");
-            letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
-          }, interval * index);
+          const tileColor = getTileColor(letter, index);
+
+          const letterId = firstLetterId + index;
+          const letterEl = document.getElementById(letterId);
+          const key = letterEl.textContent;
+          if(tileColor == "rgb(58, 58, 60)") letterEl.setAttribute("data-state", "absent");
+          if(tileColor == "rgb(83, 141, 78)") letterEl.setAttribute("data-state", "correct");
+          if(tileColor == "rgb(181, 159, 59)") letterEl.setAttribute("data-state", "present");
+
+         letterEl.setAttribute("data-animation", "flip-in")
+         letterEl.setAttribute("data-animation", "flip-out")
+         setTimeout(() => {
+         letterEl.setAttribute("data-animation", "invalid")
+         },1500)
+
+         setTimeout(() => {
+          for (let x = 0; x < 5; x++) {
+            handleFinalDelete();
+         }
+          reveal.forEach((letter, index) => {
+            setTimeout(() => {
+              
+             // updateGuessedWords(letter);
+              const letterId = firstLetterId + index;
+              const letterEl = document.getElementById(letterId);
+              letterEl.setAttribute("data-animation", "idle");
+              letterEl.setAttribute("data-state", "empty");
+             
+  
+              setTimeout(() => {
+              letterEl.setAttribute("data-animation", "flip-in")
+              letterEl.innerText = letter;
+              letterEl.setAttribute("data-state", "correct");
+              letterEl.setAttribute("data-animation", "flip-out")
+              setTimeout(() => {
+                letterEl.setAttribute("data-animation", "idle");
+                letterEl.setAttribute("data-animation", "win")
+              }, 800);
+              },1000);
+            }, interval * index);
+            disabled = true;
         });
-        disabled = true;
-      }, 1000);
+      },4000);
+        },interval * index);
+      });
+      
       setTimeout(() => {
         document.getElementById("play").removeAttribute("hidden");
       }, 3000);
-      setTimeout(() => {
-        currentWordArr.forEach((letter, index) => {
-          setTimeout(() => {
-            const letterId = firstLetterId + index;
-            const letterEl = document.getElementById(letterId);
-
-            letterEl.style.animation = `color_change .5s`;
-
-            setTimeout(function () {
-              letterEl.style = "initial";
-            }, 500);
-            document.getElementById("row").setAttribute("data-animation", "invalid")
-            // document.getElementById("board-container").animate(
-            //   [
-            //     // keyframes
-            //     { to: "border-color: red" },
-            //     { transform: "translate(1px, 1px) rotate(0deg)" },
-            //     { transform: "translate(-1px, -2px) rotate(-1deg)" },
-            //     { transform: "translate(-3px, 0px) rotate(1deg)" },
-            //     { transform: "translate(3px, 2px) rotate(0deg)" },
-            //     { transform: "translate(1px, -1px) rotate(1deg)" },
-            //     { transform: "translate(-1px, 2px) rotate(-1deg)" },
-            //     { transform: "translate(-3px, 1px) rotate(0deg)" },
-            //     { transform: "translate(3px, 1px) rotate(-1deg)" },
-            //     { transform: "translate(-1px, -1px) rotate(1deg)" },
-            //     { transform: "translate(1px, 2px) rotate(0deg)" },
-            //     { transform: "translate(1px, -2px) rotate(-1deg)" },
-            //   ],
-            //   {
-            //     // timing options
-            //     duration: 500,
-            //   }
-            // );
-          });
-        });
-      });
+      
     }
     guessedWords.push([]);
   }
@@ -306,7 +277,7 @@ function storeData() {
   }
 
   function handleFinalDelete() {
-    const currentWordArr = getFinalWordArr();
+      const currentWordArr = getFinalWordArr();
 
     if (currentWordArr.length > 0) {
       const removedLetter = currentWordArr.pop();
@@ -314,6 +285,7 @@ function storeData() {
       guessedWords[guessedWords.length - 1] = currentWordArr;
 
       const lastLetterEl = document.getElementById(String(availableSpace - 1));
+      lastLetterEl.setAttribute("data-state", "empty");
 
       lastLetterEl.textContent = "";
       availableSpace = availableSpace - 1;
