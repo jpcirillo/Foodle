@@ -45,7 +45,7 @@ function storeData() {
     const alpha = Array.from(Array(26)).map((e, i) => i + 65);
     const alphabet = alpha.map((x) => String.fromCharCode(x).toLowerCase());
     alphabet.forEach(letter => {
-      document.getElementById(letter).style="background-color: rgb(129, 131, 132)"
+      document.getElementById(letter).style="background-color: rgb(255, 255, 255); color: rgb(64 102 94);"
     });
     getData();
     guessedWords = [[]];
@@ -170,15 +170,15 @@ function storeData() {
             const key = letterEl.textContent;
             if(tileColor == "rgb(58, 58, 60)") {
               letterEl.setAttribute("data-state", "absent");
-              document.getElementById(key).style=("background-color: rgb(54, 54, 54)")
+              document.getElementById(key).style=("background-color: var(--color-absent); color: white;")
             }
             if(tileColor == "rgb(83, 141, 78)") {
               letterEl.setAttribute("data-state", "correct");
-              document.getElementById(key).style=("background-color: var(--color-correct)")
+              document.getElementById(key).style=("background-color: var(--color-correct); color: white;")
             }
             if(tileColor == "rgb(181, 159, 59)") {
               letterEl.setAttribute("data-state", "present");
-              document.getElementById(key).style=("background-color: var(--color-present)")
+              document.getElementById(key).style=("background-color: var(--color-present); color: white;")
             }
            letterEl.setAttribute("data-animation", "flip-in")
            letterEl.setAttribute("data-animation", "flip-out")

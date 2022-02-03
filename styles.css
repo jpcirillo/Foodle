@@ -288,8 +288,8 @@ body {
     padding: 0;
     height: 58px;
     cursor: pointer;
-    background-color: rgb(129, 131, 132);
-    color: rgb(215, 218, 220);
+    background-color: rgb(255, 255, 255);
+    color: rgb(64 102 94);
     flex-grow: 1;
     text-transform: uppercase;
     margin-right: 6px;
