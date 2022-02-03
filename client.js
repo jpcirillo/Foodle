@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let disabled;
   let streak = 0;
   let alltime = 0;
+  let correct = [];
+  let almost = [];
   var modal = document.getElementById("exampleModal");
 
   alltime = JSON.parse(localStorage.getItem('alltime')) || 0;
@@ -58,7 +60,7 @@ function storeData() {
 
   function getNewWord() {
     word = words[Math.floor(Math.random() * words.length)];
-    console.log(word);
+   // console.log(word);
   }
 
   function getCurrentWordArr() {
@@ -91,21 +93,45 @@ function storeData() {
     }
   }
 
-  function getTileColor(letter, index) {
-    const isCorrectLetter = word.includes(letter);
+  function checkDuplicate(word, guess, dupes){
+      const currentWordArr = getCurrentWordArr();
+      correct = [];
+      almost = [];
+      
+      currentWordArr.forEach((letter, index) => {
+        if(word.charAt(index) === letter){
+          correct.push({
+            letter : letter,
+            index : index
+          });
+        }
+        if(word.charAt(index) != letter && dupes.includes(letter)){
+          almost.push({
+            letter : letter,
+            index : index
+          })
+        }
+      })
+  }
 
-    if (!isCorrectLetter) {
-      return "rgb(58, 58, 60)";
-    }
-
-    const letterInThatPosition = word.charAt(index);
-    const isCorrectPosition = letter === letterInThatPosition;
-
-    if (isCorrectPosition) {
-      return "rgb(83, 141, 78)";
-    }
-
-    return "rgb(181, 159, 59)";
+  function getTileColor(letter, index, dupes) {
+    let x;
+    almost.forEach((check) => {
+      if (check.letter === letter && check.index === index) {
+        x = "partial";
+      } else {
+        const isCorrectLetter = word.includes(letter);
+        if (!isCorrectLetter) {
+          x = "rgb(58, 58, 60)";
+        }
+        const letterInThatPosition = word.charAt(index);
+        const isCorrectPosition = letter === letterInThatPosition;
+        if (isCorrectPosition) {
+          x = "rgb(83, 141, 78)";
+        }
+      }
+    });
+    return x;
   }
 
   function css(element, style) {
@@ -161,9 +187,20 @@ function storeData() {
         });
       }
       else{
+        const getRepeatedChars = (str) => {
+          const chars = {};
+           for (const char of str) {
+               chars[char] = (chars[char] || 0) + 1;
+           }
+           return Object.entries(chars).filter(char => char[1] > 1).map(char => char[0]);
+       }
+       
+       let dupes = getRepeatedChars(word);
+       duplicates = [];
+       checkDuplicate(word,currentWord, dupes);
         currentWordArr.forEach((letter, index) => {
           setTimeout(() => {
-            const tileColor = getTileColor(letter, index);
+            const tileColor = getTileColor(letter, index, dupes);
   
             const letterId = firstLetterId + index;
             const letterEl = document.getElementById(letterId);
@@ -180,6 +217,14 @@ function storeData() {
               letterEl.setAttribute("data-state", "present");
               document.getElementById(key).style=("background-color: var(--color-present); color: white;")
             }
+
+            if(tileColor == "partial") {
+              letterEl.setAttribute("data-state", "present");
+              document.getElementById(key).style=("background: linear-gradient(.5turn, var(--color-correct) 50%, var(--color-present) 50%); color: white;")
+            }
+
+            // document.getElementById(key).style=("background: linear-gradient(.5turn, var(--color-correct) 50%, var(--color-present) 50%); color: white;")
+
            letterEl.setAttribute("data-animation", "flip-in")
            letterEl.setAttribute("data-animation", "flip-out")
           }, interval * index);
@@ -368,7 +413,7 @@ function storeData() {
 
   function getData() {
     //this will read file and send information to other function
-    fetch("words.txt")
+    fetch("food.txt")
       .then((response) => response.text())
       .then((data) => {
         words = data.split(",");
