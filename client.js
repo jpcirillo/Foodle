@@ -13,6 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   alltime = JSON.parse(localStorage.getItem('alltime')) || 0;
 
+  const getRepeatedChars = (str) => {
+    const chars = {};
+     for (const char of str) {
+         chars[char] = (chars[char] || 0) + 1;
+     }
+     return Object.entries(chars).filter(char => char[1] > 1).map(char => char[0]);
+ }
+
 
 function addValue() {
   localStorage.setItem('alltime', alltime);
@@ -60,7 +68,6 @@ function storeData() {
 
   function getNewWord() {
     word = words[Math.floor(Math.random() * words.length)];
-    console.log(word);
   }
 
   function getCurrentWordArr() {
@@ -94,66 +101,56 @@ function storeData() {
   }
 
   function checkDuplicate(word, guess, dupes){
-      const currentWordArr = getCurrentWordArr();
-      correct = [];
-      almost = [];
+    const currentWordArr = getCurrentWordArr();
 
-      console.log(word);
-      console.log(guess);
-      console.log(dupes);
-      
-      currentWordArr.forEach((letter, index) => {
-        if(word.charAt(index) === letter){
-          correct.push({
-            letter : letter,
-            index : index
-          });
+    const word1 = word;
+    const word2 = guess;
+    const result = [];
+    const letters = {};
+    for (const letter of word1) {
+        if (!letters[letter]) {
+            letters[letter] = 0;
         }
-        if(word.charAt(index) != letter && dupes.includes(letter)){
-          almost.push({
-            letter : letter,
-            index : index
-          })
+        letters[letter]++;
+    }
+     
+    const lettersCount = word1.length;
+    for (let i = 0; i < lettersCount; i++) {
+        const letter1 = word1[i];
+        const letter2 = word2[i];
+        if (letter1 === letter2) {
+            result[i] = "correct";
+            letters[letter2]--;
         }
-      })
-      console.log(correct);
-      console.log(almost);
+    }
+     
+    for (let i = 0; i < lettersCount; i++) {
+        const letter1 = word1[i];
+        const letter2 = word2[i];
+        
+        if (result[i]) {
+            continue;
+        } 
+     
+        if (letters[letter2]) {
+            result[i] = "present";
+            letters[letter2]--;
+        } else {
+            result[i] = "absent";
+        }
+    }
+
+    console.log(result);
+    return result;
   }
 
-  function getTileColor(letter, index, dupes) {
+  function getTileColor(letter, index, check) {
     let x;
-    if(almost.length > 0){
-      almost.forEach((check) => {
-        if (check.letter === letter && check.index === index) {
-          x = "partial";
-        } else {
-          const isCorrectLetter = word.includes(letter);
-          if (!isCorrectLetter) {
-            x = "rgb(58, 58, 60)";
-          }
-          const letterInThatPosition = word.charAt(index);
-          const isCorrectPosition = letter === letterInThatPosition;
-          if (isCorrectPosition) {
-            x = "rgb(83, 141, 78)";
-          }
 
-          x = "rgb(181, 159, 59)"
-        }
-      });
-    }
-    else {
-      const isCorrectLetter = word.includes(letter);
-      if (!isCorrectLetter) {
-        x = "rgb(58, 58, 60)";
-      }
-      const letterInThatPosition = word.charAt(index);
-      const isCorrectPosition = letter === letterInThatPosition;
-      if (isCorrectPosition) {
-        x = "rgb(83, 141, 78)";
-      }
-    }
-    
-    return x;
+    let tile = check[index];
+    console.log(tile);
+
+    return tile;
   }
 
   function css(element, style) {
@@ -161,11 +158,17 @@ function storeData() {
   }
 
   function handleSubmitWord() {
+
     const currentWordArr = getCurrentWordArr();
+
     if (currentWordArr.length !== 5) {
     }
 
     const currentWord = currentWordArr.join("");
+    let dupes = getRepeatedChars(currentWord);
+    let wordDupe = getRepeatedChars(word);
+    let check = checkDuplicate(word,currentWord, wordDupe);
+
 
     if (!words.includes(currentWord)) {
       const firstLetterId = guessedWordCount * 5 + 1;
@@ -192,12 +195,12 @@ function storeData() {
       if(currentWord === word){
         currentWordArr.forEach((letter, index) => {
           setTimeout(() => {
-            const tileColor = getTileColor(letter, index);
+            const tileColor = getTileColor(letter, index, check);
   
             const letterId = firstLetterId + index;
             const letterEl = document.getElementById(letterId);
             const key = letterEl.textContent;
-            if(tileColor == "rgb(83, 141, 78)") letterEl.setAttribute("data-state", "correct");
+            if(tileColor == "correct") letterEl.setAttribute("data-state", "correct");
   
            letterEl.setAttribute("data-animation", "flip-in")
            letterEl.setAttribute("data-animation", "flip-out")
@@ -209,32 +212,22 @@ function storeData() {
         });
       }
       else{
-        const getRepeatedChars = (str) => {
-          const chars = {};
-           for (const char of str) {
-               chars[char] = (chars[char] || 0) + 1;
-           }
-           return Object.entries(chars).filter(char => char[1] > 1).map(char => char[0]);
-       }
-       
-       let dupes = getRepeatedChars(word);
-       checkDuplicate(word,currentWord, dupes);
         currentWordArr.forEach((letter, index) => {
           setTimeout(() => {
-            const tileColor = getTileColor(letter, index, dupes);
+            const tileColor = getTileColor(letter, index, check);
   
             const letterId = firstLetterId + index;
             const letterEl = document.getElementById(letterId);
             const key = letterEl.textContent;
-            if(tileColor == "rgb(58, 58, 60)") {
+            if(tileColor == "absent") {
               letterEl.setAttribute("data-state", "absent");
               document.getElementById(key).style=("background-color: var(--color-absent); color: white;")
             }
-            if(tileColor == "rgb(83, 141, 78)") {
+            if(tileColor == "correct") {
               letterEl.setAttribute("data-state", "correct");
               document.getElementById(key).style=("background-color: var(--color-correct); color: white;")
             }
-            if(tileColor == "rgb(181, 159, 59)") {
+            if(tileColor == "present") {
               letterEl.setAttribute("data-state", "present");
               document.getElementById(key).style=("background-color: var(--color-present); color: white;")
             }
@@ -243,8 +236,6 @@ function storeData() {
               letterEl.setAttribute("data-state", "present");
               document.getElementById(key).style=("background: linear-gradient(.5turn, var(--color-correct) 50%, var(--color-present) 50%); color: white;")
             }
-
-            // document.getElementById(key).style=("background: linear-gradient(.5turn, var(--color-correct) 50%, var(--color-present) 50%); color: white;")
 
            letterEl.setAttribute("data-animation", "flip-in")
            letterEl.setAttribute("data-animation", "flip-out")
@@ -265,17 +256,14 @@ function storeData() {
       document.getElementById("play").removeAttribute("hidden");
       var span = document.getElementsByClassName("close")[0];
 
-      $('#exampleModal').modal('show');
-
-      
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
         if (event.target == modal) {
           modal.style.display = "none";
         }
       }
-      document.getElementById('streak').innerHTML = "SESSION STREAK: " + streak;
-      document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
+      // document.getElementById('streak').innerHTML = "SESSION STREAK: " + streak;
+      // document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
     }
 
     //FINAL WRONG WORD
@@ -288,14 +276,14 @@ function storeData() {
         currentWordArr.forEach((letter, index) => {
          setTimeout(() => {
 
-          const tileColor = getTileColor(letter, index);
+          const tileColor = getTileColor(letter, index, check);
 
           const letterId = firstLetterId + index;
           const letterEl = document.getElementById(letterId);
           const key = letterEl.textContent;
-          if(tileColor == "rgb(58, 58, 60)") letterEl.setAttribute("data-state", "absent");
-          if(tileColor == "rgb(83, 141, 78)") letterEl.setAttribute("data-state", "correct");
-          if(tileColor == "rgb(181, 159, 59)") letterEl.setAttribute("data-state", "present");
+          if(tileColor == "absent") letterEl.setAttribute("data-state", "absent");
+          if(tileColor == "correct") letterEl.setAttribute("data-state", "correct");
+          if(tileColor == "present") letterEl.setAttribute("data-state", "present");
 
          letterEl.setAttribute("data-animation", "flip-in")
          letterEl.setAttribute("data-animation", "flip-out")
@@ -330,7 +318,7 @@ function storeData() {
             }, interval * index);
             disabled = true;
         });
-      },4000);
+      },3500);
         },interval * index);
       });
       
@@ -342,6 +330,7 @@ function storeData() {
     guessedWords.push([]);
   }
 
+ 
   function createSquares() {
     const gameBoard = document.getElementById("board");
     gameBoard.innerHTML = "";
@@ -444,6 +433,4 @@ function storeData() {
         getNewWord();
       });
   }
-
-
 });
