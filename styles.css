@@ -106,7 +106,7 @@ body {
   
   #container {
     display: flex;
-    background-color: rgb(64 102 94);
+    background-color: var(--color-background);
     height: 100%;
     align-items: center;
     flex-direction: column;
