@@ -9,7 +9,36 @@ document.addEventListener("DOMContentLoaded", () => {
   let alltime = 0;
   let correct = [];
   let almost = [];
+
   var modal = document.getElementById("exampleModal");
+  // var span = document.getElementsByClassName("close")[0];
+  var stats = document.getElementById("stats");
+  var twitter = document.getElementById("twitter");
+  var play = document.getElementById("play-again");
+  var foot = document.getElementById("foot");
+  var modal = document.getElementById("myModal");
+
+  document.getElementById("play-again").onclick = ({ target }) => {
+    init();
+  };
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  twitter.onclick = function () {
+    window.open("https://twitter.com/rillotv", "_blank");
+  };
+
+  stats.onclick = function () {
+    modal.style.display = "block";
+  };
+
+  // span.onclick = function() {
+  //   modal.style.display = "none";
+  // }
 
   alltime = JSON.parse(localStorage.getItem("alltime")) || 0;
 
@@ -28,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("streak", streak);
     alltime = localStorage.getItem("alltime");
     streak = localStorage.getItem("streak");
-    console.log(alltime);
   }
 
   function storeData() {
@@ -36,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
       // Store
       window.localStorage.setItem("alltime", alltime);
       // Retrieve
-      console.log(localStorage.getItem("alltime"));
       alltime = localStorage.getItem("alltime");
     } else {
       console.log("Sorry, your browser does not support Web Storage...");
@@ -48,11 +75,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const keys = document.querySelectorAll(".keyboard-row button");
 
   function init() {
-    // addValue();
+    addValue();
+    foot.style = "visibility : hidden";
     modal.style.display = "none";
 
-    // document.getElementById('streak').innerHTML = "CURRENT STREAK: " + streak;
-    // document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
+    document.getElementById("streak").innerHTML = streak;
+    document.getElementById("alltime").innerHTML = alltime;
     const alpha = Array.from(Array(26)).map((e, i) => i + 65);
     const alphabet = alpha.map((x) => String.fromCharCode(x).toLowerCase());
     alphabet.forEach((letter) => {
@@ -63,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     guessedWords = [[]];
     availableSpace = 1;
     guessedWordCount = 0;
-    document.getElementById("play").setAttribute("hidden", "true");
     disabled = false;
     createSquares();
   }
@@ -140,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         result[i] = "absent";
       }
     }
-    
+
     return result;
   }
 
@@ -249,17 +276,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (streak > alltime) {
         alltime = streak;
       }
-      document.getElementById("play").removeAttribute("hidden");
-      var span = document.getElementsByClassName("close")[0];
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      };
-      // document.getElementById('streak').innerHTML = "SESSION STREAK: " + streak;
-      // document.getElementById('alltime').innerHTML = "All TIME STREAK: " + alltime;
+      document.getElementById("streak").innerHTML = streak;
+      document.getElementById("alltime").innerHTML = alltime;
+      setTimeout(() => {
+        foot.style = "visibility : visible";
+        modal.style.display = "block";
+      }, 3000);
     }
 
     //FINAL WRONG WORD
@@ -317,10 +339,10 @@ document.addEventListener("DOMContentLoaded", () => {
           }, 3500);
         }, interval * index);
       });
-
       setTimeout(() => {
-        document.getElementById("play").removeAttribute("hidden");
-      }, 3000);
+        foot.style = "visibility : visible";
+        modal.style.display = "block";
+      }, 7300);
     }
     guessedWords.push([]);
   }
@@ -411,9 +433,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
   }
-  document.getElementById("play").onclick = ({ target }) => {
-    init();
-  };
 
   function getData() {
     //this will read file and send information to other function
