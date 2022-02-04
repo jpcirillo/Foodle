@@ -298,58 +298,90 @@ document.addEventListener("DOMContentLoaded", () => {
       reveal = word.split("");
 
       //initial error play
-      currentWordArr.forEach((letter, index) => {
-        setTimeout(() => {
-          const tileColor = getTileColor(letter, index, check);
-
-          const letterId = firstLetterId + index;
-          const letterEl = document.getElementById(letterId);
-          const key = letterEl.textContent;
-          if (tileColor == "absent")
-            letterEl.setAttribute("data-state", "absent");
-          if (tileColor == "correct")
-            letterEl.setAttribute("data-state", "correct");
-          if (tileColor == "present")
-            letterEl.setAttribute("data-state", "present");
-
-          letterEl.setAttribute("data-animation", "flip-in");
-          letterEl.setAttribute("data-animation", "flip-out");
+      if (currentWord === word) {
+        currentWordArr.forEach((letter, index) => {
           setTimeout(() => {
-            letterEl.setAttribute("data-animation", "invalid");
-          }, 1500);
+            const tileColor = getTileColor(letter, index, check);
 
-          setTimeout(() => {
-            for (let x = 0; x < 5; x++) {
-              handleFinalDelete();
-            }
-            reveal.forEach((letter, index) => {
-              setTimeout(() => {
-                // updateGuessedWords(letter);
-                const letterId = firstLetterId + index;
-                const letterEl = document.getElementById(letterId);
-                letterEl.setAttribute("data-animation", "idle");
-                letterEl.setAttribute("data-state", "empty");
+            const letterId = firstLetterId + index;
+            const letterEl = document.getElementById(letterId);
+            const key = letterEl.textContent;
+            if (tileColor == "correct")
+              letterEl.setAttribute("data-state", "correct");
 
-                setTimeout(() => {
-                  letterEl.setAttribute("data-animation", "flip-in");
-                  letterEl.innerText = letter;
-                  letterEl.setAttribute("data-state", "correct");
-                  letterEl.setAttribute("data-animation", "flip-out");
-                  setTimeout(() => {
-                    letterEl.setAttribute("data-animation", "idle");
-                    letterEl.setAttribute("data-animation", "win");
-                  }, 800);
-                }, 1000);
-              }, interval * index);
-              disabled = true;
-            });
-          }, 3500);
-        }, interval * index);
-      });
+            letterEl.setAttribute("data-animation", "flip-in");
+            letterEl.setAttribute("data-animation", "flip-out");
+            setTimeout(() => {
+              letterEl.setAttribute("data-animation", "idle");
+              letterEl.setAttribute("data-animation", "win");
+            }, 800);
+          }, interval * index);
+        });
+        disabled = true;
+      streak++;
+      if (streak > alltime) {
+        alltime = streak;
+      }
+      document.getElementById("streak").innerHTML = streak;
+      document.getElementById("alltime").innerHTML = alltime;
       setTimeout(() => {
         foot.style = "visibility : visible";
         modal.style.display = "block";
-      }, 7300);
+      }, 3000);
+      }else{
+        currentWordArr.forEach((letter, index) => {
+          setTimeout(() => {
+            const tileColor = getTileColor(letter, index, check);
+  
+            const letterId = firstLetterId + index;
+            const letterEl = document.getElementById(letterId);
+            const key = letterEl.textContent;
+            if (tileColor == "absent")
+              letterEl.setAttribute("data-state", "absent");
+            if (tileColor == "correct")
+              letterEl.setAttribute("data-state", "correct");
+            if (tileColor == "present")
+              letterEl.setAttribute("data-state", "present");
+  
+            letterEl.setAttribute("data-animation", "flip-in");
+            letterEl.setAttribute("data-animation", "flip-out");
+            setTimeout(() => {
+              letterEl.setAttribute("data-animation", "invalid");
+            }, 1500);
+  
+            setTimeout(() => {
+              for (let x = 0; x < 5; x++) {
+                handleFinalDelete();
+              }
+              reveal.forEach((letter, index) => {
+                setTimeout(() => {
+                  // updateGuessedWords(letter);
+                  const letterId = firstLetterId + index;
+                  const letterEl = document.getElementById(letterId);
+                  letterEl.setAttribute("data-animation", "idle");
+                  letterEl.setAttribute("data-state", "empty");
+  
+                  setTimeout(() => {
+                    letterEl.setAttribute("data-animation", "flip-in");
+                    letterEl.innerText = letter;
+                    letterEl.setAttribute("data-state", "correct");
+                    letterEl.setAttribute("data-animation", "flip-out");
+                    setTimeout(() => {
+                      letterEl.setAttribute("data-animation", "idle");
+                      letterEl.setAttribute("data-animation", "win");
+                    }, 800);
+                  }, 1000);
+                }, interval * index);
+                disabled = true;
+              });
+            }, 3500);
+          }, interval * index);
+        });
+        setTimeout(() => {
+          foot.style = "visibility : visible";
+          modal.style.display = "block";
+        }, 7300);
+      }
     }
     guessedWords.push([]);
   }
