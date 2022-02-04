@@ -140,17 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
         result[i] = "absent";
       }
     }
-
-    console.log(result);
+    
     return result;
   }
 
   function getTileColor(letter, index, check) {
-    let x;
-
     let tile = check[index];
-    console.log(tile);
-
     return tile;
   }
 
