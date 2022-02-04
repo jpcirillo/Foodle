@@ -42,7 +42,7 @@
 /* Constant colors and colors derived from theme */
 :root,
 .nightmode {
-  --color-background: var(--color-tone-7);
+  --color-background: var(--color-tone-6);
 }
 :root {
   --color-present: var(--yellow);
@@ -270,8 +270,8 @@ body {
     padding: 0;
     height: 58px;
     cursor: pointer;
-    background-color: rgb(255, 255, 255);
-    color: rgb(64 102 94);
+    background-color:  var(--key-bg);
+    color: var(--key-text-color);
     flex-grow: 1;
     text-transform: uppercase;
     margin-right: 6px;

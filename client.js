@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const alphabet = alpha.map((x) => String.fromCharCode(x).toLowerCase());
     alphabet.forEach((letter) => {
       document.getElementById(letter).style =
-        "background-color: rgb(255, 255, 255); color: rgb(64 102 94);";
+        "background-color: var(--key-bg); var(--key-text-color)";
     });
     getData();
     guessedWords = [[]];
