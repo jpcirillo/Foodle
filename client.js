@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   var play = document.getElementById("play-again");
   var foot = document.getElementById("foot");
   var modal = document.getElementById("myModal");
+  var youtube = document.getElementById("youtube");
 
   document.getElementById("play-again").onclick = ({ target }) => {
     init();
@@ -30,6 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   twitter.onclick = function () {
     window.open("https://twitter.com/rillotv", "_blank");
+  };
+  youtube.onclick = function () {
+    window.open("https://youtube.com/c/rillotv", "_blank");
   };
 
   stats.onclick = function () {
