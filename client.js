@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let almost = [];
 
   var modal = document.getElementById("exampleModal");
-  // var span = document.getElementsByClassName("close")[0];
+  var span = document.getElementsByClassName("close")[0];
   var stats = document.getElementById("stats");
   var twitter = document.getElementById("twitter");
   var play = document.getElementById("play-again");
@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.style.display = "block";
   };
 
-  // span.onclick = function() {
-  //   modal.style.display = "none";
-  // }
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
 
   alltime = JSON.parse(localStorage.getItem("alltime")) || 0;
 
