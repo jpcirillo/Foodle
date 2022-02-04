@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   var foot = document.getElementById("foot");
   var modal = document.getElementById("myModal");
   var youtube = document.getElementById("youtube");
+  var discord = document.getElementById("discord");
 
   document.getElementById("play-again").onclick = ({ target }) => {
     init();
@@ -35,7 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
   youtube.onclick = function () {
     window.open("https://youtube.com/c/rillotv", "_blank");
   };
-
+  discord.onclick = function () {
+    window.open("https://discord.gg/WxkwX4v", "_blank");
+  };
   stats.onclick = function () {
     modal.style.display = "block";
   };
