@@ -20,7 +20,6 @@
 
   <script src="foodArr.js"></script>
   <script src="client.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
@@ -36,23 +35,29 @@
     <div id="game">
       <header>
         <div class="menu">
-          <button id="twitch" class="icon" aria-label="stats"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="white" d="M2.149 0l-1.612 4.119v16.836h5.731v3.045h3.224l3.045-3.045h4.657l6.269-6.269v-14.686h-21.314zm19.164 13.612l-3.582 3.582h-5.731l-3.045 3.045v-3.045h-4.836v-15.045h17.194v11.463zm-3.582-7.343v6.262h-2.149v-6.262h2.149zm-5.731 0v6.262h-2.149v-6.262h2.149z" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+          <button id="twitter" class="icon" aria-label="twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="21" viewBox="0 0 24 24">
+              <path fill="white"
+                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+            </svg>
           </button>
         </div>
         <div class="menu">
           <button id="youtube" class="icon" aria-label="youtube">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path fill="white" d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+              <path fill="white"
+                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+            </svg>
           </button>
         </div>
         <div class="title">
           <img src="foodle2.png" style="max-width:50%; max-height:100%;">
         </div>
         <div class="menu">
-          <button id="twitter" class="icon" aria-label="twitter">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="21" viewBox="0 0 24 24">
+          <button id="help" class="icon" aria-label="help">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <path fill="white"
-                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1.25 17c0 .69-.559 1.25-1.25 1.25-.689 0-1.25-.56-1.25-1.25s.561-1.25 1.25-1.25c.691 0 1.25.56 1.25 1.25zm1.393-9.998c-.608-.616-1.515-.955-2.551-.955-2.18 0-3.59 1.55-3.59 3.95h2.011c0-1.486.829-2.013 1.538-2.013.634 0 1.307.421 1.364 1.226.062.847-.39 1.277-.962 1.821-1.412 1.343-1.438 1.993-1.432 3.468h2.005c-.013-.664.03-1.203.935-2.178.677-.73 1.519-1.638 1.536-3.022.011-.924-.284-1.719-.854-2.297z" />
             </svg>
           </button>
         </div>
@@ -214,8 +219,92 @@
               <div class="label">Max Streak</div>
             </div>
           </div>
+          <hr>
           <div class="footer" id="foot" style="visibility:hidden">
             <button class="play-again" id="play-again">Play Again</button>
+          </div>
+          <div class="support" id="foot">
+            <hr id="bar" style="visibility:hidden">
+            <h1>Support The Project!</h1>
+            <div id="statistics">
+              <div class="statistic-container">
+                <div id="support-container">
+                  <button class="support-donate" id="support-donate">Donate</button>
+                </div>
+              </div>
+              <div class="statistic-container">
+                <div id="support-container">
+                  <button class="support-twitter" id="support-twitter">Twitter</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="helpModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="closeHelp">&times;</span>
+          <h1>HOW TO PLAY</h1>
+          <hr>
+          <div id="helper">
+            <div class="help-container">
+              <div class="help">Guess the&nbsp<strong>FOODLE</strong>&nbspin six tries.
+              </div>
+            </div>
+
+            <div class="help-container">
+              <div class="help">Each guess must be a valid five-letter word. Hit the enter button to submit.
+              </div>
+            </div>
+            <div class="help-container">
+              <div class="help">After each guess, the color of the tiles will change to show how close your guess was to
+                the word.
+              </div>
+            </div>
+            <div class="help-container">
+              <div class="help">Foodle is entirely food related terms. This could be, for example, anything from "Basil" to "Plate."
+              </div>
+            </div>
+          </div>
+
+          <div id="correct-board-container">
+            <div class="help-container">
+              <hr>
+              <div><strong>Examples</strong>
+                <div id="correct-board" style="width: 300px; height: 66px;"></div>
+                <div class="help">The letter "P" is in the word and in the correct spot.</div>
+              </div>
+            </div>
+          </div>
+          <div id="contains-board-container">
+            <div class="help-container">
+              <div id="contains-board" style="width: 300px; height: 66px;"></div>
+              <div class="help">The letter "R" is in the word but in the wrong spot.</div>
+            </div>
+          </div>
+          <div id="absent-board-container">
+            <div class="help-container">
+              <div id="absent-board" style="width: 300px; height: 66px;"></div>
+              <div class="help">The letter "B" is not in the word in any spot.</div>
+            </div>
+          </div>
+          <hr>
+
+          <div class="support" id="foot">
+            <h1>Support The Project!</h1>
+            <div id="statistics">
+              <div class="statistic-container">
+                <div id="support-container">
+                  <button class="support-donate2" id="support-donate2">Donate</button>
+                </div>
+              </div>
+              <div class="statistic-container">
+                <div id="support-container">
+                  <button class="support-twitter2" id="support-twitter2">Twitter</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -223,4 +312,5 @@
   </div>
   </div>
 </body>
+
 </html>
