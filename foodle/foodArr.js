@@ -137,4 +137,9 @@ let words = [
   "beers",
   "crumb",
   "maple",
+  "quail",
+  "dulce",
+  "brown",
+  "farro",
+  "rinds",
 ];
