@@ -16,9 +16,18 @@ As this was intended to be a simple project, the code and styling was done compl
 * HTML
 
 In the future, I would like to add a more robust framework around the project, allowing for much easier feature expansion in the future.
+</br>
+</br>
+
+## Running Locally
+<hr>
+Since the project is currently framework-less, you can run and test your code by simply opening the foodle/index.html file in a browser.
+</br>
+</br>
+
 
 ## Contributing
-
+<hr>
 All contributions welcome! Please follow these steps to contribute to the Foodle project:
 
 1. Fork this project repository
