@@ -20,14 +20,12 @@ In the future, I would like to add a more robust framework around the project, a
 </br>
 
 ## Running Locally
-<hr>
 Since the project is currently framework-less, you can run and test your code by simply opening the foodle/index.html file in a browser.
 </br>
 </br>
 
 
 ## Contributing
-<hr>
 All contributions welcome! Please follow these steps to contribute to the Foodle project:
 
 1. Fork this project repository
