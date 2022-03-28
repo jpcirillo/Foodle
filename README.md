@@ -20,7 +20,17 @@ In the future, I would like to add a more robust framework around the project, a
 </br>
 
 ## Running Locally
-Since the project is currently framework-less, you can run and test your code by simply opening the foodle/index.html file in a browser.
+```
+npm install
+```
+
+
+```
+npm run start
+```
+
+
+Go to http://127.0.0.1:8080
 </br>
 </br>
 

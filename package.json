@@ -1,0 +1,23 @@
+{
+  "name": "foodle",
+  "version": "1.0.0",
+  "description": "Foodle is a food themed version of the popular word game \"Wordle.\"",
+  "main": "main.js",
+  "scripts": {
+    "start": "http-server ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniel-schroeder-io/Foodle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daniel-schroeder-io/Foodle/issues"
+  },
+  "homepage": "https://github.com/daniel-schroeder-io/Foodle#readme",
+  "dependencies": {
+    "http-server": "^14.1.0"
+  }
+}
