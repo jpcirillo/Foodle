@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/daniel-schroeder-io/Foodle.git"
+    "url": "git+https://github.com/jpcirillo/Foodle.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Joe Cirillo",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/daniel-schroeder-io/Foodle/issues"
+    "url": "https://github.com/jpcirillo/Foodle/issues"
   },
-  "homepage": "https://github.com/daniel-schroeder-io/Foodle#readme",
+  "homepage": "https://github.com/jpcirillo/Foodle#readme",
   "dependencies": {
     "http-server": "^14.1.0"
   }
